@@ -29,29 +29,26 @@ using namespace std;
     4
 
     */
-int X, Y, P1, P2;
-// 100 * 100000 + P1
-int check1[10000205];
 
-void find_LCM(int num1, int num2){
-    for(int i = 0; i <= 100000; i++){
-        check1[num1 + (X*i)] = 1;
-    }
-    for(int i = 0; i <= 100000; i++){
-        if(check1[num2 + (Y*i)] == 1){
-            cout << num2 + (Y*i) << "\n";
-            return;
-        }
-    }
-    cout << -1 << "\n";
-    return;
-}
 
-int main(int argc, const char * argv[]) {
+int main(int argc, const char * argv[]) 
     ios::sync_with_stdio();
     cin.tie(NULL);
-    cout.tie(NULL);
-    cin >> X >> Y >> P1 >> P2;
-    find_LCM(P1,P2);
+    cout.tie(NULL);{
+
+    int n, count = 0 ;
+    unsigned short m5 = 0, m2 = 0;
+    // n = a * m5 + b * m2
+    // a + b < a_n + b_n
+    // output -> a + b
+    cin >> n ;
+
+    if(n%5 == 0){
+        m5 = n/5 ;
+        count += m5 ;
+    }
+
+    
+    
     return 0;
 }
