@@ -28,27 +28,65 @@ using namespace std;
     예제 출력 2 
     4
 
+    1 -> -1
+    2 -> m2 = 1 
+    3 -> -1
+    4 -> m2 = 2
+    5 -> m5 = 1
+    6 -> m2 = 3
+    7 -> m5 = 1, m2 = 1
+    8 -> m2 = 4
+    9 -> m5 = 1, m2 = 2
+    10 > m5 = 2
+    11 > m5 = 1, m2 = 3
+    12 > m5 = 2, m2 = 1
+    13 > m5 = 2, m2 = 4
+    14 > m5 = 2, m2 = 2
+    15 > m5 = 3
+    16 > m5 = 2, m2 = 3
+    17 > m5 = 3, m2 = 1
+    18 > m5 = 2, m2 = 4
+    19 > m5 = 3, m2 = 2
+    20 > m5 = 4
+
+    99999 -> m5 = 19999, m2 = 2
+    100000 -> m5 = 20000
+
     */
 
 
-int main(int argc, const char * argv[]) 
+int main(int argc, const char * argv[]) {
     ios::sync_with_stdio();
     cin.tie(NULL);
-    cout.tie(NULL);{
+    cout.tie(NULL);
 
-    int n, count = 0 ;
+    int n, count ;
     unsigned short m5 = 0, m2 = 0;
     // n = a * m5 + b * m2
     // a + b < a_n + b_n
     // output -> a + b
     cin >> n ;
 
-    if(n%5 == 0){
-        m5 = n/5 ;
-        count += m5 ;
+    if(n%5 != 0 && n%2 != 0 && n < 4){
+        printf("-1\n");
+        return 0 ;
     }
-
+    else if(n%5 == 0){
+        m5 = n/5 ;
+    }
+    else if(n%2 != 0){      // odd nember
+        m5 += 1 ;
+        n -= 5 ;
+        m5 += (n / 10) * 2 ;
+        m2 += (n % 10) / 2 ;
+    }
+    else{
+        m5 += (n / 10) * 2 ;
+        m2 += (n % 10) / 2 ;
+    }
     
+    count = m5 + m2 ;
+    printf("%d\n", count) ;
     
     return 0;
 }
