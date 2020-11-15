@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include <vector>
+#include <string>
+#include <string.h>
 #include <algorithm>
 
 using namespace std;
@@ -25,27 +27,37 @@ using namespace std;
 
 */
 
-
-
-// find_Sum_Experience_Point
-
 int main(int argc, const char * argv[]) {
     ios::sync_with_stdio();
     cin.tie(NULL);
     cout.tie(NULL);
-    int X;
+    //int X;
+    char X[6] ;
     cin >> X ;
-    vector <int> v;
-    int Y = X ;
+    short len = strlen(X) ;
+    int x = atoi(X) ;
 
-    while(Y >= 10){
-        v.push_back(Y % 10) ;
-        Y /= 10 ;
+    vector <int> u;
+    string buffer ;
+
+    do {
+        for(int i = 0; i < len; i++){
+            buffer += X[i] ;
+        }
+        u.push_back(atoi(buffer.c_str()));
+        buffer.clear() ;
+    } while(next_permutation(X, X + len)) ;
+
+    sort(u.begin(), u.end());
+
+    for(int i = 0 ; i < u.size(); i++){
+        if(x < u[i]){
+            printf("%d\n", u[i]);
+            return 0 ;
+        }
     }
-    v.push_back(Y) ;
 
-    for(int i = 0 ; i < v.size(); i++)
-        printf("%d\n", v[i]);
+    printf("0\n");
 
     return 0;
 }
