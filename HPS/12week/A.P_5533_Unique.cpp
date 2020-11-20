@@ -50,15 +50,12 @@ using namespace std;
     플레이어 5 : 89 + 0 + 0 = 89 
 
     */
-void check_num(vector <int> l){ 
+void check_num(vector <int> *l){ 
     
-    vector<int>::iterator iter = l.begin() ;
-    vector<int>::iterator curr = l.end() ;
-
     int overlap = -1 ;
     
-    for (vector<int>::iterator iter = l.begin() ; iter != l.end(); ++iter){
-        for (vector<int>::iterator curr = iter ; curr != l.end(); ++curr){
+    for (vector<int>::iterator iter = l->begin() ; iter != l->end(); ++iter){
+        for (vector<int>::iterator curr = iter + 1 ; curr != l->end(); ++curr){
             if(overlap == -1 && *iter == 0)
                 break ;
             else if(overlap == -1 && *curr == 0)
@@ -87,25 +84,22 @@ int main(int argc, const char * argv[]) {
 
     cin >> N ;
 
-    vector <int> num1(3) ;
-    vector <int> num2(3) ;
-    vector <int> num3(3) ;
+    vector <vector <int> > num(3) ;
 
     int temp[3] ;
     for(int i = 0 ; i < N ; i++){
         cin >> temp[0] >> temp [1] >> temp[2] ;
-        num1.push_back(temp[0]);
-        num2.push_back(temp[1]);
-        num3.push_back(temp[2]);
+        for(int j = 0; j < 3; j ++)
+            num[j].push_back(temp[j]);
     }
-
-    check_num(num1);
-    check_num(num2);
-    check_num(num3);
+    
+    check_num(&num[0]);
+    check_num(&num[1]);
+    check_num(&num[2]);
     
     for(int i = 0 ; i < N ; i++){
-        cout << num1[i] << "\t\t" << num2[i] << "\t\t" << num3[i] << endl ;
+        printf("%d\n", num[0][i] + num[1][i] + num[2][i]);
     }
-    
+
     return 0;
 }
