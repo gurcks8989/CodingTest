@@ -1,8 +1,8 @@
 
 
-//#define day1 
-//#define day2
-#define day3
+//#define P1 
+#define P2
+//#define P3
 
 
 #include <iostream>
@@ -27,7 +27,7 @@ Ex)
 
 */
 
-#ifdef day1
+#ifdef P1
 
 //#define task 
 // if you try task #2, undefine task
@@ -105,7 +105,7 @@ Z A -> A Z
 5.555 1. 111 -> 1.111 5.555
 */
 
-#ifdef day2
+#ifdef P2
 
 #include <iomanip>
 
@@ -138,15 +138,15 @@ int main(){
     float five = 5.555, one = 1.111;
     
     cout << x << " " << y ;
-    swap(x, y) ;
+    swap(&x, &y) ;
     cout << setw(7) << " " << "-> " << x << " " << y << endl ;
     
     cout << z << " " << a ;
-    swap(z, a) ;
+    swap(&z, &a) ;
     cout << setw(9) << " " << "-> " << z << " " << a << endl ;
 
     cout << five << " " << one ;
-    swap(five, one) ;
+    swap(&five, &one) ;
     cout << " -> " << five << " " << one << endl ;
     
     return 0 ;
@@ -229,14 +229,18 @@ void main(){
 
 */
 
-#ifdef day3
+#ifdef P3
 
 struct min_sec {
     int min;        
     int sec;        
 } ;
 
-min_sec operator+ (min_sec & op1, min_sec &op2)
+//&가 있고 없고의 차이는 reference의 차이
+//shallow copy, deep copy의 차이가 있다
+//추가로 point는 8byte, struct의 size의 따라 크기가 달라지는 것과는 다르게 reference는 그 크기가 고정되어 있다.
+
+min_sec operator+ (min_sec & op1, min_sec & op2)
 {
     min_sec clock ;
 
@@ -323,8 +327,8 @@ int main(){
     
     c = a + b;
     d = a - b;
-    cout << "Time1:" << a;            //Time1: 5 min 59 sec     
-    cout << "Time2:" << b;           //Time2: 10 min 30 sec
+    cout << "Time1:" << a;          //Time1: 5 min 59 sec     
+    cout << "Time2:" << b;          //Time2: 10 min 30 sec
     cout << "Time1+Time2:" << c;    //Time1+Time2 : 16 min 29 sec 
     cout << "Time1-Time2:" << d;    //Time1-Time2 : 271 sec
     
