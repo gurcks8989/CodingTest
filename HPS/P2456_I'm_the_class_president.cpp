@@ -63,7 +63,8 @@ typedef struct score_t
 int main(){
 
     int N ;
-
+    int i, k = 0 ;
+    int max = 0 ;
     cin >> N ;
 
     score s[3] ;
@@ -73,65 +74,47 @@ int main(){
         s[i].p2 = 0 ;
         s[i].p3 = 0 ;
         s[i].num = i + 1 ;
-    }
+    } // 초기화 
 
-    for(int i = 0 ; i < N; i ++){
-        
-        int temp[3] ;
+    int temp[3] ;
 
+    while(k < N){
         cin >> temp[0] >> temp[1] >> temp[2] ;
-    
-        for(int i = 0 ; i < 3; i++){
+        for(i = 0 ; i < 3; i++){
             s[i].score += temp[i] ;
-
             switch(temp[i]){
                 case 3: s[i].p3 += 1 ; break ;
                 case 2: s[i].p2 += 1 ; break ;
                 default : break ;
             }
         }
+        k++ ;
     }
     
-    /* 
-    for(int i = 0 ; i < 3 ; i ++){
-        printf("%d\t%d\t%d\t%d\n", s[i].score, s[i].p3, s[i].p2, s[i].num) ;
-    }
-    */ 
-
-    score max ;
-
-    unsigned char match = 0 ;
-
-    for(int i = 0 ; i < 3 ; i ++){
-        if(max.score < s[i].score){
-            max = s[i] ;
-            if(match != 0)
-                match = 0 ;
+    for(i = 0 ; i < 3 ; i ++){
+        if(s[i].score > max) {
+            max = s[i].score;
         }
-        else if(max.score == s[i].score){
-            if(max.p3 < s[i].p3){
-                max = s[i] ;
-                if(match != 0)
-                    match = 0 ;
-            }
-            else if(max.p3 == s[i].p3){
-                if(max.p2 < s[i].p2){
-                    max = s[i] ;
-                    if(match != 0)
-                        match = 0 ;
+    }
+    
+    int index = 0 ;
+
+    for(i = 0 ; i < 3 ; i ++){
+        if(max == s[i].score){
+            if(s[index].p3 < s[i].p3) {
+                index = i;
+            } else if(s[index].p3 == s[i].p3) {
+                if(s[index].p2 < s[i].p2) {
+                    index = i;
+                } else if(s[index].p2 == s[i].p2){
+                    index = 0;
+                    break;
                 }
-                else if(max.p2 == s[i].p2)
-                    match = 1 ;
             }
         }
     }
 
-    if(match)
-        printf("0 %d", max.score) ;
-    else
-        printf("%d %d", max.num, max.score);
-
-    printf("\n") ;
+    printf("%d %d\n", index + 1, s[index].score);
 
     return 0 ;
 }
