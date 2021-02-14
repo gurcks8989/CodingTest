@@ -1,30 +1,29 @@
 #include "stdio.h"
 
-int main(){
+void changeVar(float *cvar) {
+  *cvar = *cvar + 10.0;
+}
 
-    int A = 3;
-    int B;
-    int *P = &A;
-    int *Q = P;
-    int *R = &B;
 
-    printf("Enter value:");
-    scanf("%d",R);
-    printf("A:%d \t B:%d\n", A, B);
-    printf("*P:%d \t *Q:%d \t *R:%d\n", *P, *Q, *R);
+float *findMax(float A[], int N) {
+  int I;
+  float *theMax = &(A[0]);
 
-    Q = &B;
-    if (P == Q)
-    printf("1\n");
-    if (Q == R)
-    printf("2\n");
-    if (*P == *Q)
-    printf("3\n");
-    if (*Q == *R)
-    printf("4\n");
-    if (*P == *R)
-    printf("5\n");
+  for (I = 1; I < N; I++)
+    if (A[I] > *theMax) theMax = &(A[I]);
 
+  return theMax;
+}
+
+int  main() {
+
+    int V = 101;
+
+    int *P = &V;  /* P points to int V */
+
+    int **Q = &P;  /* Q points to int pointer P */
+
+    printf("%d %d %d\n",V,*P,**Q); /* prints 101 3 times */
 
     return 0 ;
 }
