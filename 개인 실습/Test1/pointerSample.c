@@ -17,13 +17,12 @@ float *findMax(float A[], int N) {
 
 int  main() {
 
-    int V = 101;
+  int V = 101;
+  float p = (float) V ;
+  float *P = (float *) &V; 
 
-    int *P = &V;  /* P points to int V */
-
-    int **Q = &P;  /* Q points to int pointer P */
-
-    printf("%d %d %d\n",V,*P,**Q); /* prints 101 3 times */
-
-    return 0 ;
+  printf("%d\n", V) ;
+  printf("%.1f", p) ;
+  printf("%.1f", *P) ;
+  return 0 ;
 }
