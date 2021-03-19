@@ -35,34 +35,86 @@
 #include <vector>
 #include <algorithm>
 
-using namespace std;
+using namespace std ;
+
+typedef struct thing_{
+    int W ;
+    short int V ;
+}thing ;
+
+short int N ;
+
+struct less_than_key
+{
+    inline bool operator() (const thing& t1, const thing& t2)
+    {
+        if(t1.W == t2.W)
+            return t1.V < t2.V ;
+
+        return t1.W < t2.W ;
+    }
+};
+
+int calculate(vector <thing> & T, int K, int begin) ;
 
 int main(){
     ios::sync_with_stdio();
     cin.tie(NULL);
-    cout.tie(NULL);
+    cout.tie(NULL) ;
+
+    vector <thing> T(100) ;
     /*
     N(1 ≤ N ≤ 100)
     K(1 ≤ K ≤ 100,000) 
     W(1 ≤ W ≤ 100,000)
     V(0 ≤ V ≤ 1,000)
     */
-    short int N ;
-    int K;
 
+    int K ;
     cin >> N >> K ;
 
-    vector <int> W(N) ;
-    vector <short int> V(N) ;
-   
-    for(int i = 0 ; i < N ; i++){
-        cin >> W[i] >> V[i] ;
-    }
+    for(int i = 0 ; i < N ; i++)
+        cin >> T[i].W >> T[i].V ;
 
-    for(int i = 0 ; i < N ; i++){
-        printf("%d \t\t %d\n", W[i], V[i]) ;
-    }
+    sort(T.begin(), T.end(),less_than_key());
+
+    for(int i = 0 ; i < 100 ; i ++)
+        printf("%d \t %d\n", T[i].W, T[i].V) ;
+
+    //int max = calculate(K, 0) ;
+
+    //printf("%d\n", max) ;
 
     return 0 ;
 
+}
+
+int calculate(vector <thing> & T, int K, int begin){
+
+    int maxValue = 0 ;
+    int curr = 0 ;
+    int remain = K ;
+
+    for(int i = begin ; i < N ; i++){
+        if(T[i].W <= remain){
+            remain -= T[i].W ;
+            curr += T[i].V ;
+            if(remain == 0){
+                if(maxValue < curr)
+                    maxValue = curr ; 
+                curr = 0 ;
+                remain = K ;
+            }
+            else{   //remain > 0
+                curr = calculate(T, remain, i) ; 
+                if(maxValue < curr)
+                    maxValue = curr ;
+            }
+        }
+        else
+            continue ;
+        
+    }
+    
+    return maxValue ;
 }
