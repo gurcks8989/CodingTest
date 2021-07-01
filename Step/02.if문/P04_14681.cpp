@@ -26,7 +26,6 @@
 -13
 예제 출력 2 
 4
-출처
 */
 
 #include <iostream>
@@ -36,8 +35,6 @@
 #define range(x) (x != 0 && -1000000 <= x && x <= 1000000)
 
 using namespace std;
-
-void mul(int a, int b);
 
 int main(){
     
@@ -76,6 +73,6 @@ int main(){
     }
 
     cout << n << endl ; 
-    
+
     return 0 ;
 }
