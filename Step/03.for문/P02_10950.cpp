@@ -1,49 +1,50 @@
 
 /*
-시험 점수를 입력받아 
-90 ~ 100점은 A, 
-80 ~ 89점은 B, 
-70 ~ 79점은 C, 
-60 ~ 69점은 D, 
-나머지 점수는 F를 출력하는 프로그램을 작성하시오.
+A+B - 3
+
+문제
+두 정수 A와 B를 입력받은 다음, A+B를 출력하는 프로그램을 작성하시오.
+
+입력
+첫째 줄에 테스트 케이스의 개수 T가 주어진다.
+
+각 테스트 케이스는 한 줄로 이루어져 있으며, 각 줄에 A와 B가 주어진다. (0 < A, B < 10)
+
+출력
+각 테스트 케이스마다 A+B를 출력한다.
+
+예제 입력 1 
+5
+1 1
+2 3
+3 4
+9 8
+5 2
+예제 출력 1 
+2
+5
+7
+17
+7
 */
 
 #include <iostream>
 
-#define range(x) (0 <= x && x <= 100)
+#define range(x) (0 <= x && x <= 10)
 
 using namespace std;
 
-void grade(int a);
 
 int main(){
     
-    int a ;
+    int T, A, B ;
     
-    do{
-        cin >> a;
-    }while(!range(a)) ;
+    cin >> T;
 
-    grade(a) ;
-
+    for(int i = 0 ; i < T ; i++){
+        cin >> A >> B ;
+        cout << A + B << endl ;
+    }
+    
     return 0 ;
-}
-
-void grade(int a){
-
-    char case_ ;
-    enum{Large, Equal, Small} ;
-
-    if(90 <= a)
-        case_ = 'A' ; 
-    else if(80 <= a)
-        case_ = 'B' ;
-    else if(70 <= a)
-        case_ = 'C' ; 
-    else if(60 <= a)
-        case_ = 'D' ; 
-    else
-        case_ = 'F' ; 
-
-    cout << case_ << endl;
 }
