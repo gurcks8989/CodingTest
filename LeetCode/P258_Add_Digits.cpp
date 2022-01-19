@@ -20,6 +20,9 @@ Constraints:
 0 <= num <= 231 - 1
 */
 
+/*
+version 1 
+
 class Solution {
 public:
     int addDigits(int num) {
@@ -33,5 +36,23 @@ public:
             sum = 0 ;
         }
         return answer ;
+    }
+};
+*/
+
+class Solution {
+public:
+    int addDigits(int num) {
+        if(num < 10)
+            return num ;
+        else
+            return addDigits(sumDigits(num)) ;
+    }
+    
+    int sumDigits(int num) {
+        if(num == 0)
+            return 0 ;
+        else
+            return num % 10 + sumDigits(num/10) ;
     }
 };
