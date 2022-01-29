@@ -23,3 +23,22 @@ Output: ["1","2","Fizz","4","Buzz","Fizz","7","8","Fizz","Buzz","11","Fizz","13"
 Constraints:
 1 <= n <= 104
 */
+class Solution {
+public:
+    vector<string> fizzBuzz(int n) {
+        vector<string> answer ;
+        for(int i = 1 ; i <= n ; i++){
+            if(i % 3 == 0 || i % 5 == 0){
+                string temp = "" ;
+                if(i % 3 == 0)
+                    temp += "Fizz" ;
+                if(i % 5 == 0)
+                    temp += "Buzz" ;
+                answer.push_back(temp) ;
+            }
+            else
+                answer.push_back(to_string(i)) ;           
+        }
+        return answer ;
+    }
+};
