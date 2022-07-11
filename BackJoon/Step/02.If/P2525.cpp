@@ -36,3 +36,17 @@ KOI 전자에서는 건강에 좋고 맛있는 훈제오리구이 요리를 간�
 예제 출력 3 
 0 13
 */
+
+#include <iostream>
+
+using namespace std ;
+
+int main(){
+    int initHour, initMinute, needMinute ;
+    cin >> initHour >> initMinute >> needMinute ;
+    initHour += needMinute / 60 ;
+    initMinute += needMinute % 60 ;
+    initHour += initMinute / 60 ;
+    cout << initHour % 24 << " " << initMinute % 60 << endl ;
+    return 0 ;
+}
