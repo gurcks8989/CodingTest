@@ -1,8 +1,10 @@
 /*
-별 찍기 - 1
-문제 출처: https://www.acmicpc.net/problem/2438
+별 찍기 - 2
+문제 출처: https://www.acmicpc.net/problem/2439
 
 첫째 줄에는 별 1개, 둘째 줄에는 별 2개, N번째 줄에는 별 N개를 찍는 문제
+
+하지만, 오른쪽을 기준으로 정렬한 별(예제 참고)을 출력하시오.
 
 입력
 첫째 줄에 N(1 ≤ N ≤ 100)이 주어진다.
@@ -13,10 +15,10 @@
 예제 입력 1 
 5
 예제 출력 1 
-*
-**
-***
-****
+    *
+   **
+  ***
+ ****
 *****
 */
 
@@ -24,11 +26,11 @@
 
 using namespace std;
 
-void printStar(int n){
+void printChar(int n, char c){
     if(n==0)
         return ;
-    cout << "*" ;
-    printStar(n-1) ;
+    cout << c ;
+    printChar(n-1, c) ;
 }
 
 int main(){
@@ -39,7 +41,8 @@ int main(){
     int N ; 
     cin >> N ;
     for(int i = 1 ; i <= N ; i++){
-        printStar(i) ;
+        printChar(N-i, ' ') ;
+        printChar(i, '*') ;
         cout << "\n" ;
     }
     return 0 ;
