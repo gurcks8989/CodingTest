@@ -49,18 +49,18 @@ int main(){
             j /= 10 ;
         }
         if(2 < v.size()){
-            int a1 = *v.end() ;
+            int a1 = *(v.end()-1) ;
             int prev = a1, d = 0 ;
             bool isFirst = true, isExist = true ;
             // arithmetic progression: a_n = a_1 + (n-1)d
-            for(vector<int>::iterator iter = v.end() - 1; iter != v.begin() ; iter--){
+            for(vector<int>::iterator iter = v.end() - 2; iter != v.begin() - 1 ; iter--){
                 if(isFirst){
                     isFirst = false ;
                     d = *iter - prev ;
                 }
                 else{
                     if(*iter - prev != d){
-                        false ;
+                        isExist = false ;
                         break ;
                     }
                 }
