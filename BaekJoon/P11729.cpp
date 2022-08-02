@@ -1,32 +1,33 @@
 /*
+ÇÏ³ëÀÌ Å¾ ÀÌµ¿ ¼ø¼­
+¹®Á¦ ÃâÃ³: https://www.acmicpc.net/problem/11729
 
-11729ë²ˆ
-í•˜ë…¸ì´ íƒ‘ ì´ë™ ìˆœì„œ
+¼¼ °³ÀÇ Àå´ë°¡ ÀÖ°í Ã¹ ¹øÂ° Àå´ë¿¡´Â ¹Ý°æÀÌ ¼­·Î ´Ù¸¥ n°³ÀÇ ¿øÆÇÀÌ ½×¿© ÀÖ´Ù. 
+°¢ ¿øÆÇÀº ¹Ý°æÀÌ Å« ¼ø¼­´ë·Î ½×¿©ÀÖ´Ù. 
+ÀÌÁ¦ ¼öµµ½ÂµéÀÌ ´ÙÀ½ ±ÔÄ¢¿¡ µû¶ó Ã¹ ¹øÂ° Àå´ë¿¡¼­ ¼¼ ¹øÂ° Àå´ë·Î ¿Å±â·Á ÇÑ´Ù.
 
-ë¬¸ì œ
-ì„¸ ê°œì˜ ìž¥ëŒ€ê°€ ìžˆê³  ì²« ë²ˆì§¸ ìž¥ëŒ€ì—ëŠ” ë°˜ê²½ì´ ì„œë¡œ ë‹¤ë¥¸ nê°œì˜ ì›íŒì´ ìŒ“ì—¬ ìžˆë‹¤. 
-ê° ì›íŒì€ ë°˜ê²½ì´ í° ìˆœì„œëŒ€ë¡œ ìŒ“ì—¬ìžˆë‹¤. ì´ì œ ìˆ˜ë„ìŠ¹ë“¤ì´ ë‹¤ìŒ ê·œì¹™ì— ë”°ë¼ ì²« ë²ˆì§¸ ìž¥ëŒ€ì—ì„œ ì„¸ ë²ˆì§¸ ìž¥ëŒ€ë¡œ ì˜®ê¸°ë ¤ í•œë‹¤.
+ÇÑ ¹ø¿¡ ÇÑ °³ÀÇ ¿øÆÇ¸¸À» ´Ù¸¥ Å¾À¸·Î ¿Å±æ ¼ö ÀÖ´Ù.
+½×¾Æ ³õÀº ¿øÆÇÀº Ç×»ó À§ÀÇ °ÍÀÌ ¾Æ·¡ÀÇ °Íº¸´Ù ÀÛ¾Æ¾ß ÇÑ´Ù.
+ÀÌ ÀÛ¾÷À» ¼öÇàÇÏ´Âµ¥ ÇÊ¿äÇÑ ÀÌµ¿ ¼ø¼­¸¦ Ãâ·ÂÇÏ´Â ÇÁ·Î±×·¥À» ÀÛ¼ºÇÏ¶ó. 
+´Ü, ÀÌµ¿ È½¼ö´Â ÃÖ¼Ò°¡ µÇ¾î¾ß ÇÑ´Ù.
 
-í•œ ë²ˆì— í•œ ê°œì˜ ì›íŒë§Œì„ ë‹¤ë¥¸ íƒ‘ìœ¼ë¡œ ì˜®ê¸¸ ìˆ˜ ìžˆë‹¤.
-ìŒ“ì•„ ë†“ì€ ì›íŒì€ í•­ìƒ ìœ„ì˜ ê²ƒì´ ì•„ëž˜ì˜ ê²ƒë³´ë‹¤ ìž‘ì•„ì•¼ í•œë‹¤.
-ì´ ìž‘ì—…ì„ ìˆ˜í–‰í•˜ëŠ”ë° í•„ìš”í•œ ì´ë™ ìˆœì„œë¥¼ ì¶œë ¥í•˜ëŠ” í”„ë¡œê·¸ëž¨ì„ ìž‘ì„±í•˜ë¼. ë‹¨, ì´ë™ íšŸìˆ˜ëŠ” ìµœì†Œê°€ ë˜ì–´ì•¼ í•œë‹¤.
-
-ì•„ëž˜ ê·¸ë¦¼ì€ ì›íŒì´ 5ê°œì¸ ê²½ìš°ì˜ ì˜ˆì‹œì´ë‹¤.
+¾Æ·¡ ±×¸²Àº ¿øÆÇÀÌ 5°³ÀÎ °æ¿ìÀÇ ¿¹½ÃÀÌ´Ù.
 
 
-ìž…ë ¥
-ì²«ì§¸ ì¤„ì— ì²« ë²ˆì§¸ ìž¥ëŒ€ì— ìŒ“ì¸ ì›íŒì˜ ê°œìˆ˜ N (1 â‰¤ N â‰¤ 20)ì´ ì£¼ì–´ì§„ë‹¤.
 
-ì¶œë ¥
-ì²«ì§¸ ì¤„ì— ì˜®ê¸´ íšŸìˆ˜ Kë¥¼ ì¶œë ¥í•œë‹¤.
+ÀÔ·Â
+Ã¹Â° ÁÙ¿¡ Ã¹ ¹øÂ° Àå´ë¿¡ ½×ÀÎ ¿øÆÇÀÇ °³¼ö N (1 ¡Â N ¡Â 20)ÀÌ ÁÖ¾îÁø´Ù.
 
-ë‘ ë²ˆì§¸ ì¤„ë¶€í„° ìˆ˜í–‰ ê³¼ì •ì„ ì¶œë ¥í•œë‹¤. 
-ë‘ ë²ˆì§¸ ì¤„ë¶€í„° Kê°œì˜ ì¤„ì— ê±¸ì³ ë‘ ì •ìˆ˜ A Bë¥¼ ë¹ˆì¹¸ì„ ì‚¬ì´ì— ë‘ê³  ì¶œë ¥í•˜ëŠ”ë°, 
-ì´ëŠ” Aë²ˆì§¸ íƒ‘ì˜ ê°€ìž¥ ìœ„ì— ìžˆëŠ” ì›íŒì„ Bë²ˆì§¸ íƒ‘ì˜ ê°€ìž¥ ìœ„ë¡œ ì˜®ê¸´ë‹¤ëŠ” ëœ»ì´ë‹¤.
+Ãâ·Â
+Ã¹Â° ÁÙ¿¡ ¿Å±ä È½¼ö K¸¦ Ãâ·ÂÇÑ´Ù.
 
-ì˜ˆì œ ìž…ë ¥ 1 
+µÎ ¹øÂ° ÁÙºÎÅÍ ¼öÇà °úÁ¤À» Ãâ·ÂÇÑ´Ù. 
+µÎ ¹øÂ° ÁÙºÎÅÍ K°³ÀÇ ÁÙ¿¡ °ÉÃÄ µÎ Á¤¼ö A B¸¦ ºóÄ­À» »çÀÌ¿¡ µÎ°í Ãâ·ÂÇÏ´Âµ¥, 
+ÀÌ´Â A¹øÂ° Å¾ÀÇ °¡Àå À§¿¡ ÀÖ´Â ¿øÆÇÀ» B¹øÂ° Å¾ÀÇ °¡Àå À§·Î ¿Å±ä´Ù´Â ¶æÀÌ´Ù.
+
+¿¹Á¦ ÀÔ·Â 1 
 3
-ì˜ˆì œ ì¶œë ¥ 1 
+¿¹Á¦ Ãâ·Â 1 
 7
 1 3
 1 2
@@ -38,86 +39,34 @@
 */
 
 #include <iostream>
-#include <stack>
 
 using namespace std ;
 
-// Pop and Drop / sce .. -> .. dest1 .. -> .. dest2 
-int PnD(stack<int> & sce, stack<int> & dest1, stack<int> & dest2){
-    int temp ;
-    temp = sce.top() ;
-    
-    if(dest2.empty() || dest2.top() > temp){
-        sce.pop() ;
-        dest2.push(temp) ;
+int k = 0 ;
+string answer ;
+
+void hanoi(int n, int start, int to, int via){
+    if(n==1){
+        k += 1 ;
+        answer += to_string(start) + " " + to_string(to) + "\n" ;
     }
     else{
-        temp = dest2.top() ;
-        if(dest1.empty() || dest1.top() > temp){
-            dest2.pop() ;
-            dest1.push(temp) ;
-        }
-        else{
-            return 1 ;
-        }
+        hanoi(n-1, start, via, to) ;
+        k += 1 ;
+        answer += to_string(start) + " " + to_string(to) + "\n" ;
+        hanoi(n-1, via, to, start) ;
     }
-    return 0 ;
 }
-
-ostream & operator<<(ostream & os, stack<int> s) //function header
-{
-    while(!s.empty()) //body
-    {
-        os << s.top() << " ";
-        s.pop();
-    }
-    return os; // end of function
-}
-
 
 int main(){
-
-    // Number of Disc Plates / range = [1, 20]
+    ios::sync_with_stdio(false) ;
+    cin.tie(NULL) ;
+    cout.tie(NULL) ;
     short N ;
-
     cin >> N ;
-    if(N < 1 || 20 < N){
-        return 1; 
-    }
 
-    // t1 -> t3
-    stack <int> t1, t2, t3 ;
-
-    for(int i = N ; i > 0 ; i--)
-        t1.push(i) ;
-
-    cout << "what is stack" << endl ;
-    cout << t1 << endl ;
-
-    int temp ;
-
-    while(!t1.empty()){
-        temp = t1.top() ;
-
-        // temp%2 == 1 
-        // odd 
-        if(temp%2){
-            if(PnD(t1, t2, t3)){
-            }
-        }
-        // even
-        else{
-            if(PnD(t1, t3, t2)){
-                //PnD(t3, t2, t1) ;
-                //PnD(t2, t1, t3) ;
-            }
-        }
-        cout << "t1\t|\tt2\t|\tt3" << endl ;
-        cout << t1 << "\t|\t" << t2 << "\t|\t" << t3 << endl; 
-    }
-
-
-    
-
+    hanoi(N, 1, 3, 2) ;
+    cout << k << "\n" ;
+    cout << answer ;
     return 0 ;
 }
