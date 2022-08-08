@@ -111,11 +111,16 @@ int main(){
     bool positive = true ;
     if(sum/(double)N <= -1)
         positive = false ;
-    if((int)(sum/(double)N + 0.5) == (int)(sum/(double)N))
-        cout << sum / N << "\n" ;
-    else{
-        if(positive)
+        
+    if(positive){
+        if((int)(sum/(double)N + 0.5) == (int)(sum/(double)N))
+            cout << sum / N << "\n" ;
+        else
             cout << sum / N + 1 << "\n" ;
+    }    
+    else{
+        if((int)(sum/(double)N - 0.5) == (int)(sum/(double)N))
+            cout << sum / N << "\n" ;
         else
             cout << sum / N - 1 << "\n" ;
     }
