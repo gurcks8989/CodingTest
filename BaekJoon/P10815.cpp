@@ -32,7 +32,8 @@
 */
 
 #include <iostream>
-#include <map>
+#include <vector>
+#include <algorithm>
 
 using namespace std ;
 
@@ -40,11 +41,21 @@ int main(){
     ios::sync_with_stdio(false) ;
     cin.tie(NULL) ;
     cout.tie(NULL) ;
-    int N ;
+    int N, M ;
     cin >> N ;
-    map<int, int> 
-    for(int i = 0 ; i < N ; i++){
-
+    vector<int> cards(N) ;
+    for(int i = 0 ; i < N ; i++)
+        cin >> cards[i] ;
+    sort(cards.begin(), cards.end()) ;
+    cin >> M ;
+    for(int i = 0 ; i < M ; i++){
+        int card ;
+        cin >> card ;
+        auto k = lower_bound(cards.begin(), cards.end(), card) ;
+        if(card == *k)
+            cout << "1 " ;
+        else
+            cout << "0 " ;
     }
     return 0 ;
 }
