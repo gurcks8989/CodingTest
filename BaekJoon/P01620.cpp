@@ -191,9 +191,8 @@ int main(){
     for(int i = 0 ; i < M ; i++){
         string keyword ;
         cin >> keyword ;
-        if(isNumber(keyword)){
+        if(isNumber(keyword))
             cout << pokemons[stoi(keyword)] << "\n" ;
-        }
         else
             cout << pokedex[keyword] << "\n" ;
     }
