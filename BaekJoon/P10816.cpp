@@ -41,6 +41,9 @@ int main(){
     for(int i = 0 ; i < N ; i++){
         int temp ;
         cin >> temp ;
+        // map::insert의 return value는 pair<iterator, bool>
+        // bool 값은 값을 넣을 수 있으면 true, 이미 존재하여 넣을 수 없다면 false를 저장합니다
+        // iterator는 이미 존재했을 경우 그 위치를 리턴해줍니다.
         auto ret = cards.insert({temp, 1});
         if (!ret.second)
             ret.first->second += 1;
