@@ -21,36 +21,25 @@ ababc
 */
 
 #include <iostream>
-#include <vector>
 #include <set>
 
 using namespace std ;
-
-void getSubset(set<string> & s, vector<char> & temp, string str, int k){
-    if(k == str.size() + 1){
-        string subset(temp.begin(), temp.end()) ;
-        s.insert(subset) ;
-    }
-    else{
-        temp.push_back(str[k]) ;
-        getSubset(s, temp, str, k + 1) ;
-        temp.pop_back() ;
-        getSubset(s, temp, str, k + 1) ;
-    }
-}
 
 int main(){
     ios::sync_with_stdio(false) ;
     cin.tie(NULL) ;
     cout.tie(NULL) ;
-    set<string> set ;
-    vector<char> temp ;
+    set<string> answer ;
     string S ;
     cin >> S ;
-    getSubset(set, temp, S, 1) ;
-    for(set<string>::iterator iter = set.begin() ; iter != set.end() ; iter++){
-        cout << *iter << "\n" ;
+    size_t size = S.size() ;
+    for(int n = 1 ; n <= size ; n++){
+        // count
+        for(int i = 0 ; i <= size - n ; i++){
+            // start point
+            answer.insert(S.substr(i, n)) ;
+        }
     }
-    cout << set.size() << "\n" ;
+    cout << answer.size() << "\n" ;
     return 0 ;
 }
