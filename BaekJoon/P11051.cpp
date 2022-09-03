@@ -24,7 +24,9 @@ binom{N}{K}를 10,007로 나눈 나머지를 출력한다.
 
 using namespace std ;
 
-int combination(int (*dp)[RANGE], int n, int k){
+int dp[RANGE][RANGE] ;
+
+int combination(int n, int k){
     int temp = 0 ;
     if(dp[n][k])
         return dp[n][k] ;
@@ -35,7 +37,7 @@ int combination(int (*dp)[RANGE], int n, int k){
     else if(k == 1 || k == n)
         temp = n ;
     else
-        temp = combination(dp, n-1, k-1) + combination(dp, n-1, k) ;
+        temp = combination(n-1, k-1) + combination(n-1, k) ;
     dp[n][k] = temp % MOD ;
     return dp[n][k] ;
 }
@@ -45,8 +47,7 @@ int main(){
     cin.tie(NULL) ;
     cout.tie(NULL) ;
     int N, K ;
-    int dp[RANGE][RANGE] ;
     cin >> N >> K ;
-    cout << combination(dp, N, K) << "\n" ;
+    cout << combination(N, K) << "\n" ;
     return 0 ;
 }
