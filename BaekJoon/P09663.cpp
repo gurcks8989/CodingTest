@@ -15,21 +15,52 @@ N이 주어졌을 때, 퀸을 놓는 방법의 수를 구하는 프로그램을 
 예제 입력 1 
 8
 예제 출력 1 
-9
+92
 */
 
 #include <iostream>
+#include <cstring>
+#include <vector>
 #define MAX 15
 
 using namespace std ;
 
-int N ;
+int col[MAX+1] ;
+int N, answer = 0 ;
+
+
+bool promising (int i, int* board){
+    int k = 1 ;
+    bool flag = true ;
+    if(col[i] != 0)
+        while(k < i && flag){
+            if(col[k] != 0)
+                if(col[i] == col[k] || ((col[k] < col[i]) ? col[i]-col[k] : col[k]-col[i]) == i - k)
+                    flag = false ;
+            k += 1 ;
+        }
+    return flag ;
+}
+
+void nQueens (int i, int* col){
+    if(promising(i, col)){
+        if(i == N)
+            answer += 1 ;
+        else
+            for(int j = 1 ; j <= N ; j++){
+                col[i+1] = j ;
+                nQueens(i+1, col) ;
+            }
+    }
+}
 
 int main(){
     ios::sync_with_stdio(false) ;
     cin.tie(NULL) ;
     cout.tie(NULL) ;
+    memset(col, 0, sizeof(int) * (N + 1)) ;
     cin >> N ;
-    
+    nQueens(0, col) ;
+    cout << answer << "\n" ;
     return 0 ;
 }
