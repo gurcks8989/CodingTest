@@ -29,7 +29,7 @@ int col[MAX+1] ;
 int N, answer = 0 ;
 
 
-bool promising (int i, int* board){
+bool promising (int i){
     int k = 1 ;
     bool flag = true ;
     if(col[i] != 0)
@@ -42,8 +42,8 @@ bool promising (int i, int* board){
     return flag ;
 }
 
-void nQueens (int i, int* col){
-    if(promising(i, col)){
+void nQueens (int i){
+    if(promising(i)){
         if(i == N)
             answer += 1 ;
         else
@@ -60,7 +60,7 @@ int main(){
     cout.tie(NULL) ;
     memset(col, 0, sizeof(int) * (N + 1)) ;
     cin >> N ;
-    nQueens(0, col) ;
+    nQueens(0) ;
     cout << answer << "\n" ;
     return 0 ;
 }
