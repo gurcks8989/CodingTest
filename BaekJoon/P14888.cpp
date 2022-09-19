@@ -69,35 +69,38 @@ N개의 수와 N-1개의 연산자가 주어졌을 때, 만들 수 있는 식의
 using namespace std ;
 
 int operators[4] ;
-int max = -RANGE ;
-int min = RANGE ;
+int maximum = -RANGE ;
+int minimum = RANGE ;
 
-void dps(vector<int> & A, int depth, int sum){
-    if(depth == 0){
-        
+void dps(vector<int> & A, int n, int sum){
+    if(A.size() < n + 1){
+        if(maximum < sum)   maximum = sum ;
+        if(sum < minimum)   minimum = sum ;
     }
     else{
-        for(int ele : A){
-            int temp = sum ;
-            if(0 < operators[0]){
-                temp += ele ;
-                dps(A, depth-1, temp) ;
-            }
+        int ele = A[n] ;
+        if(0 < operators[0]){
+            operators[0] -= 1 ; 
+            dps(A, n+1, sum + ele) ;
+            operators[0] += 1 ; 
+        }
+        
+        if(0 < operators[1]){
+            operators[1] -= 1 ; 
+            dps(A, n+1, sum - ele) ;
+            operators[1] += 1 ; 
+        }
 
-            if(0 < operators[1]){
-                temp -= ele ;
-                dps(A, depth-1, temp) ;
-            }
-
-            if(0 < operators[0]){
-                temp *= ele ;
-                dps(A, depth-1, temp) ;
-            }
-            
-            if(0 < operators[0]){
-                temp /= ele ;
-                dps(A, depth-1, temp) ;
-            }
+        if(0 < operators[2]){
+            operators[2] -= 1 ; 
+            dps(A, n+1, sum * ele) ;
+            operators[2] += 1 ; 
+        }
+        
+        if(0 < operators[3]){
+            operators[3] -= 1 ; 
+            dps(A, n+1, sum / ele) ;
+            operators[3] += 1 ; 
         }
     }
 }
@@ -107,11 +110,13 @@ int main(){
     cin.tie(NULL) ;
     cout.tie(NULL) ;
     int N ;
+    cin >> N ; 
     vector<int> A(N) ;
     for(int i = 0 ; i < N ; i++)
         cin >> A[i] ;
     for(int i = 0 ; i < 4 ; i++)
         cin >> operators[i] ;
-    dps(N-1, A[0]) ;
+    dps(A, 1, A[0]) ;
+    cout << maximum << "\n" << minimum << "\n" ;
     return 0 ;
 }
