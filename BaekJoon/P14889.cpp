@@ -73,23 +73,56 @@ i\j	1	2	3	4
 */
 
 #include <iostream>
-#include <vector>
+#include <cstring>
 #define RANGE 20
 
 using namespace std ;
 
-int minimum = RANGE * 100 ;
+int minimum = RANGE * (RANGE - 1) ;
 int stats[RANGE][RANGE] ;
+int N ;
+bool isStartTeam[RANGE] ;
+
+void makeTeam(int depth, int n){
+    if(N/2 < depth){
+        int start = 0, link = 0 ;
+        for(int i = 0 ; i < N - 1 ; i++){
+            for(int j = i+1 ; j < N ; j++){
+                if(!(isStartTeam[i] ^ isStartTeam[j])){
+                    if(isStartTeam[i])
+                        start += stats[i][j] + stats[j][i] ;
+                    else
+                        link += stats[i][j] + stats[j][i] ;
+                }
+            }
+        }
+        int sub = (start < link) ? link - start : start - link ;
+        if(sub < minimum)
+            minimum = sub ;
+        return ;
+    }
+    if(N <= n)
+        return ;
+
+    if(!isStartTeam[n]){
+        isStartTeam[n] = true ;
+        makeTeam(depth+1, n+1) ;
+        isStartTeam[n] = false ;
+        makeTeam(depth, n+1) ;
+    }
+
+}
 
 int main(){
     ios::sync_with_stdio(false) ;
     cin.tie(NULL) ;
     cout.tie(NULL) ;
-    int N ;
+    memset(isStartTeam, false, RANGE * sizeof(bool)) ;
     cin >> N ; 
     for(int i = 0 ; i < N ; i++)
         for(int j = 0 ; j < N ; j++)
             cin >> stats[i][j] ;
+    makeTeam(1, 0) ;
     cout << minimum << "\n" ;
     return 0 ;
 }
