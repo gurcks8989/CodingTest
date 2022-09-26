@@ -35,7 +35,7 @@
 
 #include <iostream>
 #include <vector>
-#include <list>
+#define MAX 500
 
 using namespace std ;
 
@@ -43,11 +43,12 @@ int main(){
     ios::sync_with_stdio(false) ;
     cin.tie(NULL) ;
     cout.tie(NULL) ;
-    vector<list<int>> triangle ;
-    int n ;
+    vector<vector<int>> triangle ;
+    vector<vector<int>> dp(MAX, vector<int>(0)) ;
+    int n, answer ;
     cin >> n ;
     for(int i = 1 ; i <= n ; i++){
-        list<int> step ;
+        vector<int> step ;
         int temp ;
         for(int j = 0 ; j < i ; j++){
             cin >> temp ;
@@ -55,12 +56,19 @@ int main(){
         }
         triangle.push_back(step) ;
     }
-    for(int i = 0 ; i < n ; i++){
-        for(list<int>::iterator iter = triangle[i].begin() ; iter != triangle[i].end() ; iter++){
-            cout << *iter << " " ;
+    dp[0].push_back(triangle[0][0]) ;
+    answer = dp[0][0] ;
+    for(int i = 1 ; i < n ; i++){
+        for(int j = 0 ; j < i+1 ; j++){
+            if(j == 0)
+                dp[i].push_back(dp[i-1][j] + triangle[i][j]) ;
+            else if(j == i)
+                dp[i].push_back(dp[i-1][j-1] + triangle[i][j]) ;
+            else
+                dp[i].push_back(max(dp[i-1][j-1], dp[i-1][j]) + triangle[i][j]) ;
+            answer = max(answer, dp[i][j]) ;
         }
-        cout << "\n" ;
     }
-
+    cout << answer << "\n" ;
     return 0 ;
 }
