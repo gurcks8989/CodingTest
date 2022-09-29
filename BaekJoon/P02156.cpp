@@ -38,7 +38,6 @@
 */
 
 #include <iostream>
-#include <vector>
 #define MAX 10000 + 1
 
 using namespace std ;
@@ -49,10 +48,16 @@ int main(){
     cout.tie(NULL) ;
     int cups[MAX] = {0, } ;
     int dp[MAX] = {0, } ;
-    int n ; 
+    int n, maximum = 0 ; 
     cin >> n ;
     for(int i = 1 ; i <= n ; i++)
         cin >> cups[i] ;
-    dp[1] = cups[1] ;
+	dp[1] = cups[1];
+    if(1 < n){
+        dp[2] = cups[1] + cups[2];
+        for (int i = 3; i < n + 1; i++)
+            dp[i] = max(dp[i-1], max(dp[i-2] + cups[i], dp[i-3] + cups[i-1] + cups[i]));
+    }
+    cout << dp[n] << "\n" ;    
     return 0 ;
 }
