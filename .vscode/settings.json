@@ -40,7 +40,10 @@
         "sstream": "cpp",
         "stdexcept": "cpp",
         "streambuf": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "list": "cpp",
+        "map": "cpp",
+        "set": "cpp"
     },
     "C_Cpp.errorSquiggles": "Disabled",
     "editor.fontFamily": "Consolas, Consolas Regular, Apple SD Gothic Neo SemiBold, 'Courier New',  monospace"
