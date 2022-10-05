@@ -25,47 +25,44 @@
 7
 */
 #include <iostream>
+#include <vector>
 #define MAX 1000 + 1
 
 using namespace std ;
 
-class Sequence{
-    private:
-        int arr[MAX] = {0, } ;
-        int length = 0 ;
-        int topIdx = 0 ;
-
-    public:
-        int getTopIdx(){    return topIdx ;}
-        int getArrSize(){   return length ;}
-        void updateArr(int num, int index){
-            auto pos = lower_bound(arr + 1, arr + length + 1, num) ;
-            *pos = num ;
-            if(pos == arr + length + 1){
-                length += 1 ;
-                topIdx = index ;
-            }
-        }
-} ;
+int lis(vector<int> & v, int* A, int* dp, int index, int cnt){
+    if(v[cnt] < A[index]){
+        v.push_back(A[index]) ;
+        cnt += 1 ;
+        dp[index] = cnt ;
+    }
+    else{
+        auto pos = lower_bound(v.begin(), v.end(), A[index]) ;
+        *pos = A[index] ;
+        dp[index] = pos - v.begin() ;
+    }
+    return cnt ;
+}
 
 int main(){
     ios::sync_with_stdio(false) ;
     cin.tie(NULL) ;
     cout.tie(NULL) ;
-    Sequence ascending, descending, remainA, remainD ;
-    int A[MAX] = {0, } ;
-    int N ;
+    int A[MAX] = {0, }, dp[MAX] = {0, }, dpR[MAX] = {0, } ;
+    vector<int> ascending, descending ;  // for dp and dpR Array
+    int N, cntA = 0, cntD = 0 ;
     cin >> N ;
-    for(int i = 1 ; i <= N ; i++){
+    for(int i = 1 ; i <= N ; i++)
         cin >> A[i] ;
-        ascending.updateArr(A[i], i) ;
+    ascending.push_back(A[1]) ;
+    descending.push_back(A[N]) ;
+    for(int i = 2, j = N-1 ; i <= N ; i++, j--){
+        cntA = lis(ascending, A, dp, i, cntA) ;
+        cntD = lis(descending, A, dpR, j, cntD) ;
     }
-    for(int i = N ; 0 < i ; i--)
-        descending.updateArr(A[i], i) ;
-    for(int i = N ; ascending.getTopIdx() <= i ; i--)
-        remainA.updateArr(A[i], i) ;
-    for(int i = 1 ; i <= descending.getTopIdx() ; i++)
-        remainD.updateArr(A[i], i) ;
-    cout << max(ascending.getArrSize() + remainA.getArrSize(), descending.getArrSize() + remainD.getArrSize()) - 1 << "\n" ;
+    int maximum = 0 ;
+    for(int i = 1 ; i <= N ; i++)
+        maximum = max(maximum, dp[i] + dpR[i] + 1) ;
+    cout << maximum << "\n" ;
     return 0 ;
 }
