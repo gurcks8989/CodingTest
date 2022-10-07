@@ -39,15 +39,21 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#define MAX 500 + 1
 
 using namespace std ;
+
+bool cmp(pair<int, int> a, pair<int, int> b){
+    return a.second < b.second ;
+}
 
 int main(){
     ios::sync_with_stdio(false) ;
     cin.tie(NULL) ;
     cout.tie(NULL) ;
     vector<pair<int, int>> wires ;
-    int wire ;
+    vector<pair<int, int>> dp ;
+    int wire, cnt = 0 ;
     cin >> wire ;
     for(int i = 0 ; i < wire ; i++){
         int up1, up2 ;  // utility pole
@@ -55,9 +61,15 @@ int main(){
         wires.push_back(make_pair(up1, up2)) ;
     }
     sort(wires.begin(), wires.end()) ;
-    
-    for(auto ele : wires){
-        cout << ele.first << " " << ele.second << "\n" ;
+    dp.push_back(wires[0]) ;
+    for(int i = 1 ; i < wire ; i++){
+        if(dp[cnt].second < wires[i].second){
+            dp.push_back(wires[i]) ;
+            cnt += 1 ;
+        }
+        else
+            *(lower_bound(dp.begin(), dp.end(), wires[i], cmp)) = wires[i] ;
     }
+    cout << wire - dp.size() << "\n" ;
     return 0 ;
 }
