@@ -22,7 +22,9 @@ CAPCAK
 */
 
 #include <iostream>
-#define MAX 1000 + 1 
+#include <vector>
+#include <algorithm>
+#define MAX 1000 + 1
 
 using namespace std ;
 
@@ -31,13 +33,18 @@ int main(){
     cin.tie(NULL) ;
     cout.tie(NULL) ;
     string first, second ;
-    int dp[MAX][MAX] ;
+    vector<vector<int>> dp(MAX, vector<int>(MAX, 0)) ;
     cin >> first >> second ;
-    for(int i = 1 ; i <= first.size() ; i++){
-        for(int j = 1 ; j <= second.size() ; j++){
-
+    int sizeF = first.size(), sizeS = second.size() ;
+    for(int i = 1 ; i <= sizeF ; i++){
+        dp[i][0] = 0 ;
+        for(int j = 1 ; j <= sizeS ; j++){
+            dp[i][j] = max({dp[i][j-1], 
+                            dp[i-1][j],
+                            dp[i-1][j-1] + (first[i-1] == second[j-1]) 
+                           });
         }
     }
-    
+    cout << dp[sizeF][sizeS] << "\n" ; 
     return 0 ;
 }

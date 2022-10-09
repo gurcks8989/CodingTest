@@ -1,9 +1,7 @@
 /*
-
-12865번
 평범한 배낭
+문제 출처: https://www.acmicpc.net/problem/12865
 
-문제
 이 문제는 아주 평범한 배낭에 관한 문제이다.
 한 달 후면 국가의 부름을 받게 되는 준서는 여행을 가려고 한다. 
 세상과의 단절을 슬퍼하며 최대한 즐기기 위한 여행이기 때문에, 가지고 다닐 배낭 또한 최대한 가치 있게 싸려고 한다.
@@ -37,83 +35,55 @@
 
 using namespace std ;
 
-typedef struct thing_{
-    int W ;
-    short int V ;
-}thing ;
-
 short int N ;
 
-struct less_than_key
-{
-    inline bool operator() (const thing& t1, const thing& t2)
-    {
-        if(t1.W == t2.W)
-            return t1.V < t2.V ;
-
-        return t1.W < t2.W ;
-    }
-};
-
-int calculate(vector <thing> & T, int K, int begin) ;
+int calculate(vector<pair<int, int>> & T, int K, int begin) ;
 
 int main(){
-    ios::sync_with_stdio();
+    ios::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL) ;
 
-    vector <thing> T(100) ;
-    /*
-    N(1 ≤ N ≤ 100)
-    K(1 ≤ K ≤ 100,000) 
-    W(1 ≤ W ≤ 100,000)
-    V(0 ≤ V ≤ 1,000)
-    */
-
+    vector <pair<int, int>> things ;
     int K ;
     cin >> N >> K ;
 
-    for(int i = 0 ; i < N ; i++)
-        cin >> T[i].W >> T[i].V ;
+    for(int i = 0 ; i < N ; i++){
+        pair<int, int> temp ;
+        cin >> temp.first >> temp.second ;
+        things.push_back(temp) ;
+    }
 
-    sort(T.begin(), T.end(),less_than_key());
+    sort(things.begin(), things.end());
 
-    for(int i = 0 ; i < 100 ; i ++)
-        printf("%d \t %d\n", T[i].W, T[i].V) ;
+    for(auto ele : things)
+        cout << ele.first << "\t" << ele.second << "\n" ;
 
-    //int max = calculate(K, 0) ;
-
-    //printf("%d\n", max) ;
+    cout << calculate(things, K, 0) << "\n" ;
 
     return 0 ;
 
 }
 
-int calculate(vector <thing> & T, int K, int begin){
-
+int calculate(vector<pair<int, int>> & T, int K, int begin){
     int maxValue = 0 ;
     int curr = 0 ;
     int remain = K ;
 
     for(int i = begin ; i < N ; i++){
-        if(T[i].W <= remain){
-            remain -= T[i].W ;
-            curr += T[i].V ;
+        if(T[i].first <= remain){
+            remain -= T[i].first ;
+            curr += T[i].second ;
             if(remain == 0){
-                if(maxValue < curr)
-                    maxValue = curr ; 
+                maxValue = max(maxValue, curr) ;
                 curr = 0 ;
                 remain = K ;
             }
-            else{   //remain > 0
+            else if(0 < remain){
                 curr = calculate(T, remain, i) ; 
-                if(maxValue < curr)
-                    maxValue = curr ;
+                maxValue = max(maxValue, curr) ;
             }
-        }
-        else
-            continue ;
-        
+        }        
     }
     
     return maxValue ;
