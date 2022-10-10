@@ -31,60 +31,30 @@
 
 #include <iostream>
 #include <vector>
-#include <algorithm>
 
 using namespace std ;
-
-short int N ;
-
-int calculate(vector<pair<int, int>> & T, int K, int begin) ;
 
 int main(){
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL) ;
-
-    vector <pair<int, int>> things ;
-    int K ;
+    vector<vector<int>> dp(101, vector<int>(100001, 0));
+    vector<pair<int, int>> things(101, make_pair(0, 0)) ;
+    int N, K ;
     cin >> N >> K ;
 
-    for(int i = 0 ; i < N ; i++){
-        pair<int, int> temp ;
-        cin >> temp.first >> temp.second ;
-        things.push_back(temp) ;
-    }
+    for(int i = 1 ; i <= N ; i++)
+        cin >> things[i].first >> things[i].second ;
 
-    sort(things.begin(), things.end());
+	for (int i = 1; i <= N; i++){
+        for (int j = 1; j <= K; j++){
+            if (things[i].first <= j) 
+               dp[i][j] = max(dp[i - 1][j], dp[i - 1][j - things[i].first] + things[i].second);
+            else
+                dp[i][j] = dp[i - 1][j];
+		}
+	}
 
-    for(auto ele : things)
-        cout << ele.first << "\t" << ele.second << "\n" ;
-
-    cout << calculate(things, K, 0) << "\n" ;
-
+	cout << dp[N][K] << "\n" ;
     return 0 ;
-
-}
-
-int calculate(vector<pair<int, int>> & T, int K, int begin){
-    int maxValue = 0 ;
-    int curr = 0 ;
-    int remain = K ;
-
-    for(int i = begin ; i < N ; i++){
-        if(T[i].first <= remain){
-            remain -= T[i].first ;
-            curr += T[i].second ;
-            if(remain == 0){
-                maxValue = max(maxValue, curr) ;
-                curr = 0 ;
-                remain = K ;
-            }
-            else if(0 < remain){
-                curr = calculate(T, remain, i) ; 
-                maxValue = max(maxValue, curr) ;
-            }
-        }        
-    }
-    
-    return maxValue ;
 }
