@@ -107,34 +107,23 @@ int main(){
         subSum[i][0] = 0 ;
         int cnt = 0 ;
         for(int j = 1 ; j <= M ; j++){
-            if(board[i][j-1] != prev)
+            if(board[i][j] != prev)
                 cnt += 1 ;
             subSum[i][j] = cnt ;
+            imos[i][j] += subSum[i][j] + imos[i-1][j] ;
             prev = !prev ;
         }
         if(M%2 == 0)
             prev = !prev ;
     }
-    
-    for(int i = 1 ; i <= N ; i++){
-        for(int j = 1 ; j <= M ; j++){
-            int sum=0;
-            for(int l = 0; l < K; l++) 
-                sum+=(subSum[i+l][j+K] - subSum[i+l][j]);
-            if(minmum > sum)
-                minmum = sum;
-            if(maximum < sum)
-                maximum = sum;
+
+    for(int i = 1 ; i <= N - K + 1 ; i++){
+        for(int j = 1 ; j <= M - K + 1 ; j++){
+            int sum = imos[i+K-1][j+K-1] - imos[i-1][j+K-1] - imos[i+K-1][j-1] + imos[i-1][j-1] ;
+            minmum = min(minmum, sum) ;
+            maximum = max(maximum, sum) ;
         }
     }
-    cout << maximum << " " << minmum << " " << K << "\n" ;
     cout << min(minmum, K*K-maximum) << "\n" ;
-
-    for(int i = 1 ; i <= N ; i++){
-        for(int j = 1 ; j <= M ; j++)
-            cout << subSum[i][j] << " " ;
-        cout << "\n" ;
-    }
-
     return 0 ;
 }
