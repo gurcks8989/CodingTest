@@ -80,18 +80,19 @@ BBBBBBBBBBBBBBBWWWWWWWW
 #include <iostream>
 #include <vector>
 #define MAX 2000 + 1
+#define ll long long 
 
 using namespace std ;
 
-int maximum = 0, minmum = MAX * MAX ;
+ll maximum = 0, minmum = 1000000000 ;
 
 int main(){
     ios::sync_with_stdio(false) ;
     cin.tie(NULL) ;
     cout.tie(NULL) ;
     vector<vector<bool>> board(MAX, vector<bool>(MAX, false)) ;
-    vector<vector<int>> subSum(MAX, vector<int>(MAX, 0)) ;
-    vector<vector<int>> imos(MAX, vector<int>(MAX, 0)) ;
+    vector<vector<int>> checkCnts(MAX, vector<int>(MAX, 0)) ;
+    vector<vector<ll>> subSum(MAX, vector<ll>(MAX, 0)) ;
     int N, M, K ;
     char c ;
     cin >> N >> M >> K ;
@@ -102,15 +103,14 @@ int main(){
         }
     }
 
-    bool prev = (board[1][1] == 'W') ;
+    bool prev = board[1][1] ;
     for(int i = 1 ; i <= N ; i++){
-        subSum[i][0] = 0 ;
         int cnt = 0 ;
         for(int j = 1 ; j <= M ; j++){
             if(board[i][j] != prev)
                 cnt += 1 ;
-            subSum[i][j] = cnt ;
-            imos[i][j] += subSum[i][j] + imos[i-1][j] ;
+            checkCnts[i][j] = cnt ;
+            subSum[i][j] += checkCnts[i][j] + subSum[i-1][j] ;
             prev = !prev ;
         }
         if(M%2 == 0)
@@ -119,9 +119,9 @@ int main(){
 
     for(int i = 1 ; i <= N - K + 1 ; i++){
         for(int j = 1 ; j <= M - K + 1 ; j++){
-            int sum = imos[i+K-1][j+K-1] - imos[i-1][j+K-1] - imos[i+K-1][j-1] + imos[i-1][j-1] ;
-            minmum = min(minmum, sum) ;
+            ll sum = subSum[i+K-1][j+K-1] - subSum[i-1][j+K-1] - subSum[i+K-1][j-1] + subSum[i-1][j-1] ;
             maximum = max(maximum, sum) ;
+            minmum = min(minmum, sum) ;
         }
     }
     cout << min(minmum, K*K-maximum) << "\n" ;
