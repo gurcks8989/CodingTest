@@ -61,11 +61,32 @@ int main(){
     for(int i = 0 ; i < M ; i++){
         int index ;
         cin >> index ;
-        if(circleQueue.front() == index)
+        if(circleQueue.front() == index){
             circleQueue.pop_front() ;
-        else{
-
+            continue;
         }
+        else{
+            int x = -1, size = circleQueue.size() ;
+            for(int j = 1 ; j < size ; j++)
+                if(circleQueue.at(j) == index){
+                    x = j ;
+                    break;
+                }
+            if(2*x <= size-1)
+                while (0 < x--){
+                    circleQueue.push_back(circleQueue.front()) ;
+                    circleQueue.pop_front() ;
+                    cnt += 1 ;
+                }
+            else
+                while (x++ < size){
+                    circleQueue.push_front(circleQueue.back()) ;
+                    circleQueue.pop_back() ;
+                    cnt += 1 ;
+                }
+        }
+        circleQueue.pop_front() ;
     }
+    cout << cnt << "\n" ;
     return 0 ;
 }
