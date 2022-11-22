@@ -26,3 +26,75 @@
 8
 4000
 */
+
+#include <iostream>
+#include <vector>
+#define ll long long
+#define N_SIZE 100000 + 1
+
+using namespace std ;
+
+void init(vector<int> & tree, vector<int> & arr, int start, int end, int node){
+    if(start == end){
+        tree[node] = start ;
+        return ;
+    }
+    int mid = (start + end) / 2 ;
+    init(tree, arr, start, mid, node * 2) ;
+    init(tree, arr, mid + 1, end, node * 2 + 1) ;
+
+    tree[node] = (arr[tree[node * 2]] <= arr[tree[node * 2 + 1]]) ? tree[node * 2] : tree[node * 2 + 1] ;
+}
+
+int getMinHeight(vector<int> & tree, vector<int> & arr, int start, int end, int node, int left, int right) {
+    if (right < start || end < left)
+        return -1;
+    if (left <= start && end <= right)
+        return tree[node];
+    
+    int mid = (start + end) / 2;
+    int m1 = getMinHeight(tree, arr, start, mid, node * 2, left, right);
+    int m2 = getMinHeight(tree, arr, mid + 1, end, node * 2 + 1, left, right);
+    
+    if (m1 == -1)
+        return m2;
+    else if (m2 == -1)
+        return m1;
+    else{
+        if (arr[m1] <= arr[m2])
+            return m1;
+        else
+            return m2;
+    }
+}
+
+ll getMax(vector<int> & tree, vector<int> & arr, int start, int end) {
+    int m = getMinHeight(tree, arr, 1, arr.size(), 1, start, end);
+    ll area = (ll)(end - start + 1) * (ll) arr[m];
+
+    if (start <= m - 1)
+    area = max(area, getMax(tree, arr, start, m - 1)) ;
+    if (m + 1 <= end) 
+    area = max(area, getMax(tree, arr, m + 1, end)) ;
+
+    return area;
+}
+
+int main(){
+    ios::sync_with_stdio(false) ;
+    cin.tie(NULL) ;
+    cout.tie(NULL) ;
+    int n ;
+    while(true){
+        cin >> n ;
+        if(n == 0)
+            break ;
+        vector<int> arr(n), tree(N_SIZE * 4) ;
+        for(int i = 1 ; i <= n ; i++)
+            cin >> arr[i] ;
+        init(tree, arr, 1, n, 1) ;        
+        cout << getMax(tree, arr, 1, n) << "\n" ;
+        arr.clear() ;   tree.clear() ;
+    }
+    return 0 ;
+}
